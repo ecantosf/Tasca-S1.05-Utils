@@ -66,7 +66,7 @@ configuration files.
 ## Technologies
 - Language: Java
 - IDE: IntelliJ IDEA
-- Build Tool: Maven/Gradle (if applicable)
+- Build Tool: Maven/Gradle (not applicable in this project)
 - Version Control: Git
 
 ## Installation and Execution
@@ -75,9 +75,15 @@ configuration files.
 3. Configure JDK (Java 21 or later recommended).
 4. Run the main class of each exercise directly from the IDE.
 5. To run tests (if applicable)
+6. Command Line Compilation & Execution. To manually compile and run the Java exercises 
+from the terminal:
+6.1. Compile Java source files to bytecode
+	javac -d . *.java
+6.2. Run the compiled program (replace MainClassName with actual class name)
+	java MainClassName
 
 ## Demo
-No aplicable.
+Not applicable.
 
 ## Diagrams and Technical Decisions
-No aplicable.
+Not applicable.
