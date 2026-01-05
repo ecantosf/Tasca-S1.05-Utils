@@ -1,16 +1,15 @@
 # Java Utils Exercises 
 
 ## Description
-In this task, we will work with different Java utilities that are fundamental for 
-software development in real-world environments. You will learn how to manage files 
-and directories, read and write data, configure your code flexibly, and even protect 
-information with basic encryption techniques.
+This project provides hands-on experience with fundamental Java utilities used in 
+real-world software development. You'll learn to manage files and directories, read 
+and write data, configure applications flexibly, and protect information with basic 
+encryption techniques.
 
-We will work step-by-step, from simple functionalities to more advanced operations, 
-structured in three levels. Additionally, all activities must be executed from the 
-command line: this will help you better understand how your code works outside the 
-editor, and it will prepare you for professional environments where mastering the 
-terminal is key.
+The exercises are structured in three progressive levels, from basic operations to 
+advanced concepts. All activities are designed to be executed from the command line, 
+helping you understand how your code operates outside the IDE and preparing you for 
+professional environments where terminal proficiency is essential.
   
 ## Exercise Statement
 Level 1: At this first level, we will work with some of Java's basic utilities for 
@@ -21,11 +20,27 @@ navigating directories, filtering and sorting content, saving data to files, and
 serializing objects.
 This set of exercises will allow you to practice:
 - Using the File class to access and manage files.
-- orking with recursive structures, such as directory trees.
+- Working with recursive structures, such as directory trees.
 - Manipulating input/output (I/O) streams.
 - Persisting objects through serialization.
 By the end of this level, you will have created a small set of tools for working 
 with the file system that you can reuse or expand in future projects.
+
+## Exercise 1:
+All exercises are implemented within the same package with the following organization:
+- Main.java: Entry point with a console menu to execute all functionalities
+- DirectoryLister.java: Contains methods for exercises 1-3 (file system operations)
+- TXTFileReader.java: Handles exercise 4 (configuration-based file reading)
+- ObjectSerializer.java: Manages exercise 5 (object serialization/deserialization)
+- ExampleData.java: Example class used for serialization demonstrations
+
+Command Line Execution (Git Bash):
+- Compilation:
+    -- Navigate to the source directory: cd src
+    -- Compile all Java files: javac -d out src/utilities/basic/*.java
+- Execution:
+    -- Navigate to the output directory: cd ../out
+	-- Run the main class: java -cp out utilities.basic.Main
 
 Level 2: At this level, you will learn to parameterize the behavior of your 
 applications, a fundamental step toward making them more flexible, reusable, and 
