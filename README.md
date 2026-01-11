@@ -42,32 +42,16 @@ Command Line Execution (Git Bash):
     -- Navigate to the output directory: cd ../out
 	-- Run the main class: java -cp out utilities.basic.Main
 
-Level 2: At this level, you will learn to parameterize the behavior of your 
-applications, a fundamental step toward making them more flexible, reusable, and 
-adaptable to different environments.
-You will focus on extracting configuration from the code and moving it to an 
-external file, such as a .properties file, widely used in Java projects. You will 
-also have the option to explore more advanced libraries like Apache Commons 
-Configuration.
-Starting from an already completed exercise from the previous level, you will modify 
-your program to read the following configuration from a file:
-- Which directory should be read.
-- What the name and location of the resulting TXT file should be.
-This practice will help you better understand how to separate configuration from 
-program logic, a key skill in professional environments and in the development of 
-scalable applications.
+Level 2: (Not implemented in this version of the project)
 
-Level 3: In this final level, you will delve into a key concept of computer 
-security: data encryption.
-You will have to create a utility that enables the encryption and decryption of 
-files, applying one of the most widely used algorithms in the real world: 
-AES (Advanced Encryption Standard), in ECB or CBC modes, with PKCS5Padding.
-You will be able to use Java's standard libraries (javax.crypto) or explore more 
-powerful alternatives such as org.apache.commons.crypto.
-The goal is to understand how to protect sensitive information using symmetric 
-cryptography and apply it to real-world cases, such as files generated in previous 
-exercises. This exercise prepares you for professional environments where security 
-and privacy are essential.
+Level 3: File Encryption & Decryption
+In this final level, you implemented a file encryption and decryption utility using
+industry-standard AES (Advanced Encryption Standard) cryptography with the following
+implementation Details:
+- Algorithm: AES-128 (Advanced Encryption Standard, 128-bit key)
+- Mode: CBC (Cipher Block Chaining) - More secure than ECB as it prevents pattern recognition
+- Padding: PKCS5Padding - Ensures proper block alignment for variable-length data
+- Library: javax.crypto (Java Cryptography Extension - Standard Java library)
 
 ## Features
 - Practice using Java's basic libraries (java.io, java.util, java.nio.file, etc.).
@@ -78,10 +62,19 @@ configuration files.
 - Ensure code portability by using relative paths and File.separator.
 + Familiarize yourself with the manual compilation and execution process of programs.
 
+## Project Structure
+- All exercises are implemented within the same package with the following organization:
+- Main.java: Entry point with a console menu to execute all functionalities
+- DirectoryLister.java: Contains methods for exercises 1-3 (file system operations)
+- TXTFileReader.java: Handles exercise 4 (configuration-based file reading)
+- ObjectSerializer.java: Manages exercise 5 (object serialization/deserialization)
+- ExampleData.java: Example class used for serialization demonstrations
+- FileEncryptor.java: New class for Level 3 (AES encryption/decryption)
+
 ## Technologies
 - Language: Java
 - IDE: IntelliJ IDEA
-- Build Tool: Maven/Gradle (not applicable in this project)
+- Cryptography Library: javax.crypto (Java Cryptography Extension)
 - Version Control: Git
 
 ## Installation and Execution

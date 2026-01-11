@@ -1,6 +1,6 @@
 package utilities.basic;
 
-import java.io.File;
+import java.io.*;
 import java.util.Scanner;
 
 public class Main {
@@ -14,6 +14,7 @@ public class Main {
         scanner = new Scanner(System.in);
         cleanOutputFile();
         cleanSerializationFile();
+        cleanEncryptedFiles();
 
         if (args.length > 0) {
             String directoryPath = args[0];
@@ -31,7 +32,8 @@ public class Main {
         System.out.println("3. Save Directory Tree to TXT file (Exercise 3)");
         System.out.println("4. Read and Show from TXT file (Exercise 4)");
         System.out.println("5. Serialize/Deserialize Objects (Exercise 5)");
-        System.out.print("Enter your choice (1, 2, 3, 4 or 5): ");
+        System.out.println("6. Encrypt/Decrypt File with AES (Exercise 6)");
+        System.out.print("Enter your choice (1-6): ");
 
         try {
             int choice = scanner.nextInt();
@@ -56,6 +58,10 @@ public class Main {
             } else if (choice == 5) {
                 System.out.println("\nExercise 5: Serialize/Deserialize Objects");
                 objectSerializerDemo();
+            } else if (choice == 6) {
+            System.out.println("\nExercise 6: File Encryption/Decryption with AES");
+            fileEncryptionDemo();
+
             } else {
                 System.out.println("\nInvalid choice! Defaulting to Exercise 1.");
                 System.out.println("Exercise 1: Alphabetical List");
@@ -63,7 +69,7 @@ public class Main {
             }
 
         } catch (Exception e) {
-            System.err.println("Error: Please enter a valid number (1 to 5)");
+            System.err.println("Error: Please enter a valid number (1 to 6)");
             System.err.println("Using default Exercise 1...");
             DirectoryLister.listDirectoryAlphabetically("test-directory");
         }
@@ -144,6 +150,80 @@ public class Main {
 
             if (restoredObject != null) {
                 System.out.println("\nRestored object: " + restoredObject);
+            }
+        }
+    }
+
+    private static void fileEncryptionDemo() {
+        System.out.println("\nAES File Encryption Demo (CBC Mode):\n");
+
+        String basePath = "test-directory";
+        String inputFile = basePath + File.separator + "fileToRead.txt";
+        String encryptedFile = basePath + File.separator + "fileToRead.enc";
+        String decryptedFile = basePath + File.separator + "fileToRead.dec.txt";
+
+        try {
+            File input = new File(inputFile);
+
+            System.out.println("Encryption details:");
+            System.out.println("- Algorithm: AES-128");
+            System.out.println("- Mode: CBC (Cipher Block Chaining)");
+            System.out.println("- Padding: PKCS5Padding");
+            System.out.println("- Original file: " + input.length() + " bytes");
+            System.out.println();
+
+            System.out.println("Original file content (first 3 lines):");
+            showFilePreview(inputFile, 3);
+            System.out.println();
+
+            FileEncryptor.encryptFile(inputFile, encryptedFile);
+
+            String hexPreview = FileEncryptor.getHexPreview(encryptedFile, 48);
+            System.out.println("Hex preview (first 48 bytes): " + hexPreview);
+
+            FileEncryptor.decryptFile(encryptedFile, decryptedFile);
+
+            System.out.println("Decrypted file content (first 3 lines):");
+            showFilePreview(decryptedFile, 3);
+            System.out.println();
+
+            System.out.println("Original file:  " + new File(inputFile).length() + " bytes");
+            System.out.println("Encrypted file: " + new File(encryptedFile).length() + " bytes");
+            System.out.println("Decrypted file: " + new File(decryptedFile).length() + " bytes");
+
+        } catch (Exception e) {
+            System.err.println("\n✗ Error: " + e.getMessage());
+        }
+    }
+
+    private static void cleanEncryptedFiles() {
+        String basePath = "test-directory";
+        String[] filesToDelete = {
+                basePath + File.separator + "fileToRead.enc",
+                basePath + File.separator + "fileToRead.dec.txt"
+        };
+
+        for (String filePath : filesToDelete) {
+            File file = new File(filePath);
+            if (file.exists()) {
+                if (file.delete()) {
+                    System.out.println("Deleted: " + filePath);
+                } else {
+                    System.err.println("Warning: Could not delete: " + filePath);
+                }
+            }
+        }
+    }
+
+    private static void showFilePreview(String filePath, int numLines) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            int lineCount = 0;
+            while ((line = reader.readLine()) != null && lineCount < numLines) {
+                System.out.println("  " + line);
+                lineCount++;
+            }
+            if (lineCount == numLines) {
             }
         }
     }
