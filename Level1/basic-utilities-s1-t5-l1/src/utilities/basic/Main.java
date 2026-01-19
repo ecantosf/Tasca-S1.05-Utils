@@ -1,12 +1,15 @@
 package utilities.basic;
 
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Main {
 
-    private static final String OUTPUT_PATH = "C:\\Users\\fonca\\IdeaProjects\\Sprint1\\T5_Utils\\Level1\\basic-utilities-s1-t5-l1\\test-directory\\directory_tree_output.txt";
-    private static final String SERIALIZATION_PATH = "C:\\Users\\fonca\\IdeaProjects\\Sprint1\\T5_Utils\\Level1\\basic-utilities-s1-t5-l1\\test-directory\\serialized_object.ser";
+    private static final Path OUTPUT_PATH = Paths.get("test-directory", "directory_tree_output.txt");
+    private static final Path SERIALIZATION_PATH = Paths.get("test-directory", "serialized_object.ser");
+
     private static Scanner scanner;
 
     public static void main(String[] args) {
@@ -40,7 +43,8 @@ public class Main {
             scanner.nextLine();
 
             String directory = "test-directory";
-            String outputPath = OUTPUT_PATH;
+            // Utilitzar toString() quan es necessiti String
+            String outputPath = OUTPUT_PATH.toString();
 
             if (choice == 1) {
                 System.out.println("\nExercise 1: Alphabetical List");
@@ -59,9 +63,8 @@ public class Main {
                 System.out.println("\nExercise 5: Serialize/Deserialize Objects");
                 objectSerializerDemo();
             } else if (choice == 6) {
-            System.out.println("\nExercise 6: File Encryption/Decryption with AES");
-            fileEncryptionDemo();
-
+                System.out.println("\nExercise 6: File Encryption/Decryption with AES");
+                fileEncryptionDemo();
             } else {
                 System.out.println("\nInvalid choice! Defaulting to Exercise 1.");
                 System.out.println("Exercise 1: Alphabetical List");
@@ -76,20 +79,20 @@ public class Main {
     }
 
     private static void cleanOutputFile() {
-        File outputFile = new File(Main.OUTPUT_PATH);
+        File outputFile = OUTPUT_PATH.toFile();
 
         if (outputFile.exists()) {
             if (outputFile.delete()) {
-                System.out.println("Previous output file deleted: " + Main.OUTPUT_PATH);
+                System.out.println("Previous output file deleted: " + OUTPUT_PATH);
             } else {
-                System.err.println("Warning: Could not delete previous output file: " + Main.OUTPUT_PATH);
+                System.err.println("Warning: Could not delete previous output file: " + OUTPUT_PATH);
             }
         }
     }
 
     private static void cleanSerializationFile() {
-        File serFile = new File(Main.SERIALIZATION_PATH);
-        deleteFileIfExists(serFile, Main.SERIALIZATION_PATH);
+        File serFile = SERIALIZATION_PATH.toFile();
+        deleteFileIfExists(serFile, SERIALIZATION_PATH.toString());
     }
 
     private static void deleteFileIfExists(File file, String filePath) {
@@ -126,10 +129,10 @@ public class Main {
             System.out.println("Object created: " + customObject);
 
             System.out.println("\nSerializing object...");
-            ObjectSerializer.serializeObject(customObject, SERIALIZATION_PATH);
+            ObjectSerializer.serializeObject(customObject, SERIALIZATION_PATH.toString());
 
             System.out.println("\nDeserializing object...");
-            ExampleData restoredObject = (ExampleData) ObjectSerializer.deserializeObject(SERIALIZATION_PATH);
+            ExampleData restoredObject = (ExampleData) ObjectSerializer.deserializeObject(SERIALIZATION_PATH.toString());
 
             if (restoredObject != null) {
                 System.out.println("\nRestored object: " + restoredObject);
@@ -145,8 +148,8 @@ public class Main {
             ExampleData defaultObject = new ExampleData("Default Object", 100);
             System.out.println("Using default object: " + defaultObject);
 
-            ObjectSerializer.serializeObject(defaultObject, SERIALIZATION_PATH);
-            ExampleData restoredObject = (ExampleData) ObjectSerializer.deserializeObject(SERIALIZATION_PATH);
+            ObjectSerializer.serializeObject(defaultObject, SERIALIZATION_PATH.toString());
+            ExampleData restoredObject = (ExampleData) ObjectSerializer.deserializeObject(SERIALIZATION_PATH.toString());
 
             if (restoredObject != null) {
                 System.out.println("\nRestored object: " + restoredObject);
@@ -157,10 +160,10 @@ public class Main {
     private static void fileEncryptionDemo() {
         System.out.println("\nAES File Encryption Demo (CBC Mode):\n");
 
-        String basePath = "test-directory";
-        String inputFile = basePath + File.separator + "fileToRead.txt";
-        String encryptedFile = basePath + File.separator + "fileToRead.enc";
-        String decryptedFile = basePath + File.separator + "fileToRead.dec.txt";
+        Path basePath = Paths.get("test-directory");
+        String inputFile = basePath.resolve("fileToRead.txt").toString();
+        String encryptedFile = basePath.resolve("fileToRead.enc").toString();
+        String decryptedFile = basePath.resolve("fileToRead.dec.txt").toString();
 
         try {
             File input = new File(inputFile);
@@ -197,14 +200,14 @@ public class Main {
     }
 
     private static void cleanEncryptedFiles() {
-        String basePath = "test-directory";
-        String[] filesToDelete = {
-                basePath + File.separator + "fileToRead.enc",
-                basePath + File.separator + "fileToRead.dec.txt"
+        Path basePath = Paths.get("test-directory");
+        Path[] filesToDelete = {
+                basePath.resolve("fileToRead.enc"),
+                basePath.resolve("fileToRead.dec.txt")
         };
 
-        for (String filePath : filesToDelete) {
-            File file = new File(filePath);
+        for (Path filePath : filesToDelete) {
+            File file = filePath.toFile();
             if (file.exists()) {
                 if (file.delete()) {
                     System.out.println("Deleted: " + filePath);
@@ -222,8 +225,6 @@ public class Main {
             while ((line = reader.readLine()) != null && lineCount < numLines) {
                 System.out.println("  " + line);
                 lineCount++;
-            }
-            if (lineCount == numLines) {
             }
         }
     }
