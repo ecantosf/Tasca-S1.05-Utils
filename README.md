@@ -5,7 +5,10 @@ This project provides hands-on experience with fundamental Java utilities used i
 real-world software development. You'll learn to manage files and directories, read 
 and write data, configure applications flexibly, and protect information with basic 
 encryption techniques.
-
+if (!rootDir.exists() || !rootDir.isDirectory()) {
+            System.err.println("Error: " + directoryPath + " is not a valid directory.");
+            return;
+        }src
 The exercises are structured in three progressive levels, from basic operations to 
 advanced concepts. All activities are designed to be executed from the command line, 
 helping you understand how your code operates outside the IDE and preparing you for 
@@ -36,8 +39,8 @@ All exercises are implemented within the same package with the following organiz
 
 Command Line Execution (Git Bash):
 - Compilation:
-    -- Navigate to the source directory: cd src
-    -- Compile all Java files: javac -d out src/utilities/basic/*.java
+    -- Navigate to the source directory: cd utilities/basic
+    -- Compile all Java files: javac -d out utilities/basic/*.java
 - Execution:
     -- Navigate to the output directory: cd ../out
 	-- Run the main class: java -cp out utilities.basic.Main

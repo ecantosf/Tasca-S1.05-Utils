@@ -96,13 +96,8 @@ public class DirectoryLister {
 
         File rootDir = new File(directoryPath);
 
-        if (!rootDir.exists()) {
-            System.err.println("Error: Directory " + directoryPath + " does not exist.");
-            return;
-        }
-
-        if (!rootDir.isDirectory()) {
-            System.err.println("Error: " + directoryPath + " is not a directory.");
+        if (!rootDir.exists() || !rootDir.isDirectory()) {
+            System.err.println("Error: " + directoryPath + " is not a valid directory.");
             return;
         }
 

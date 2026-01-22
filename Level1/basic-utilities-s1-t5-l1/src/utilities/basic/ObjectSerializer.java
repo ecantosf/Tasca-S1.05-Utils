@@ -4,8 +4,6 @@ import java.io.*;
 
 public class ObjectSerializer {
 
-    private static final String DEFAULT_SERIALIZATION_PATH = "C:\\Users\\fonca\\IdeaProjects\\Sprint1\\T5_Utils\\Level1\\basic-utilities-s1-t5-l1\\test-directory\\serialized_object.ser";
-
     public static void serializeObject(Object obj, String filePath) {
         try (FileOutputStream fileOut = new FileOutputStream(filePath);
              ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
